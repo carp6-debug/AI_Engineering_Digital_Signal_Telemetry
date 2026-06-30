@@ -1,0 +1,123 @@
+[
+    {
+        "CaseId": "001",
+        "ProtocolFamily": "DMR Tier II",
+        "Symptom": "Intermittent audio dropouts during voice transmission, especially when mobile unit is in motion.",
+        "Context": {
+            "Environment": "Urban area with reflective surfaces",
+            "Hardware": "Handheld DMR radio, 4W output",
+            "Configuration": "Repeater-linked, 12.5 kHz channel spacing"
+        },
+        "ObservedSignals": {
+            "RSSI_dBm": -92,
+            "SNR_dB": 14,
+            "BER_percent": 5.0,
+            "BER_peak_percent": 10.0,
+            "CRC_Errors": "Frequent",
+            "Jitter": "Moderate"
+        },
+        "RootCause": "Multipath reflections causing symbol timing errors and elevated BER.",
+        "ResolutionSteps": [
+            "Enabled receiver equalization mode.",
+            "Adjusted antenna orientation to reduce reflective path dominance.",
+            "Relocated repeater antenna to improve line-of-sight coverage."
+        ],
+        "Notes": "DMR\u00e2\u20ac\u2122s 4-FSK modulation is sensitive to multipath in dense urban environments. BER > 5% typically results in audible artifacts or dropouts."
+    },
+    {
+        "CaseId": "002",
+        "ProtocolFamily": "P25 Phase I",
+        "Symptom": "Receiver fails to decode voice frames; displays 'INVALID NAC' error.",
+        "Context": {
+            "Environment": "Dispatch center",
+            "Hardware": "P25 base station receiver",
+            "Configuration": "Mixed fleet of subscriber radios"
+        },
+        "ObservedSignals": {
+            "RSSI_dBm": -78,
+            "SNR_dB": 22,
+            "BER_percent": 1.0,
+            "CRC_Errors": "None",
+            "NAC_Mismatch": true
+        },
+        "RootCause": "Subscriber radios programmed with mismatched Network Access Code (NAC).",
+        "ResolutionSteps": [
+            "Verified NAC on base station (0x293).",
+            "Reprogrammed subscriber radios to match.",
+            "Performed system-wide configuration audit."
+        ],
+        "Notes": "P25 NAC mismatches prevent frame acceptance even when RF conditions are excellent."
+    },
+    {
+        "CaseId": "003",
+        "ProtocolFamily": "NXDN 4800",
+        "Symptom": "Frequent CRC failures and dropped frames on repeater uplink.",
+        "Context": {
+            "Environment": "Industrial facility",
+            "Hardware": "NXDN repeater with remote antenna",
+            "Configuration": "150 ft LMR-400 coaxial feedline"
+        },
+        "ObservedSignals": {
+            "RSSI_dBm": -85,
+            "SNR_dB": 18,
+            "BER_percent": 3.5,
+            "CRC_Errors": "High",
+            "CableLoss_dB": 6.5
+        },
+        "RootCause": "Excessive feedline loss causing marginal signal levels at repeater input.",
+        "ResolutionSteps": [
+            "Replaced LMR-400 with LDF4-50A hardline.",
+            "Installed lightning arrestor with lower insertion loss.",
+            "Re-measured feedline loss (reduced to 2.1 dB)."
+        ],
+        "Notes": "NXDN\u00e2\u20ac\u2122s narrowband 4-level FSK is highly sensitive to SNR degradation from cable loss."
+    },
+    {
+        "CaseId": "004",
+        "ProtocolFamily": "DMR Tier II",
+        "Symptom": "Subscriber radios unable to access Slot 2; Slot 1 operates normally.",
+        "Context": {
+            "Environment": "Rural repeater site",
+            "Hardware": "Dual-slot DMR repeater",
+            "Configuration": "GPS timing disabled"
+        },
+        "ObservedSignals": {
+            "RSSI_dBm": -70,
+            "SNR_dB": 25,
+            "BER_percent": 1.0,
+            "CRC_Errors": "Low",
+            "SlotTimingOffset_ms": 1.8
+        },
+        "RootCause": "Repeater\u00e2\u20ac\u2122s internal clock drifted, causing TDMA slot boundary misalignment.",
+        "ResolutionSteps": [
+            "Enabled GPS-disciplined timing.",
+            "Recalibrated internal oscillator.",
+            "Verified slot alignment using service monitor."
+        ],
+        "Notes": "DMR TDMA requires strict 30 ms slot timing; drift >1 ms can cause slot access failures."
+    },
+    {
+        "CaseId": "005",
+        "ProtocolFamily": "P25 Phase I",
+        "Symptom": "Voice transmissions sound garbled or robotic on receiving units.",
+        "Context": {
+            "Environment": "Public safety fleet",
+            "Hardware": "Mixed vendor radios",
+            "Configuration": "Some units using legacy IMBE parameters"
+        },
+        "ObservedSignals": {
+            "RSSI_dBm": -82,
+            "SNR_dB": 20,
+            "BER_percent": 1.5,
+            "CRC_Errors": "Low",
+            "VocoderMismatch": true
+        },
+        "RootCause": "Subscriber radios using incompatible IMBE vocoder parameter sets.",
+        "ResolutionSteps": [
+            "Updated firmware on legacy radios.",
+            "Standardized vocoder settings across fleet.",
+            "Performed interoperability test."
+        ],
+        "Notes": "P25 vocoder mismatches often manifest as 'robotic' or 'underwater' audio despite good RF conditions."
+    }
+]

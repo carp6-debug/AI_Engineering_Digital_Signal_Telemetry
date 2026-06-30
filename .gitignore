@@ -1,0 +1,95 @@
+# ============================================================
+# AI_Engineering_Digital_Signal_Telemetry — Python Project
+# Custom .gitignore tuned for local LLM, local RAG DB, JSONL,
+# and Python-only AI Engineering architecture.
+# ============================================================
+
+# -----------------------------
+# Python cache & bytecode
+# -----------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# -----------------------------
+# Virtual environments
+# -----------------------------
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# -----------------------------
+# Jupyter / IPython
+# -----------------------------
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# -----------------------------
+# Build / packaging
+# -----------------------------
+build/
+dist/
+*.egg-info/
+*.egg
+
+# -----------------------------
+# Logs / temp / misc
+# -----------------------------
+*.log
+*.tmp
+*.temp
+*.DS_Store
+Thumbs.db
+
+# -----------------------------
+# IDE / Editor settings
+# -----------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# -----------------------------
+# Model training artifacts
+# KEEP: adapter_model.safetensors, trainer_state.json, etc.
+# IGNORE: large intermediate training files if generated
+# -----------------------------
+# Uncomment if you later add huge intermediate checkpoints:
+# models/finetune_engine_phase11/checkpoint-*/intermediate/
+
+# >>> IGNORE ENTIRE MODEL CHECKPOINT DIRECTORY <<<
+models/finetune_engine_phase11/
+
+# -----------------------------
+# RAG database
+# KEEP: rag_db/ (small, essential)
+# IGNORE: if future DB grows too large
+# -----------------------------
+# Uncomment if rag_db becomes >500MB:
+# rag_db_backup/
+# rag_db_temp/
+
+# -----------------------------
+# Python tooling
+# -----------------------------
+.mypy_cache/
+.pytest_cache/
+coverage/
+htmlcov/
+.cache/
+
+# -----------------------------
+# Security / credentials
+# -----------------------------
+*.pem
+*.key
+*.crt
+*.token
+*.secrets
+*.env
+.env.*
+
