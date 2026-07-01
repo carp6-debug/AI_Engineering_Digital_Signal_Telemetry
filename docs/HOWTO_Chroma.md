@@ -1,11 +1,13 @@
-# 📦 HOWTO — Chroma Vector DB Ingestion
+# 📦 HOWTO — Chroma Vector DB Ingestion  
 ### AI_Engineering_Digital_Signal_Telemetry  
 ### RAW Markdown Reference Guide
 
 ---
 
 # 🎯 Purpose
-Convert `embedding_cases.jsonl` into a **local vector database** for RAG.
+Convert `embedding_cases.jsonl` into a **local vector database** for RAG retrieval.
+
+This is **PHASE 10**.
 
 ---
 
@@ -17,65 +19,71 @@ Install:
 pip install chromadb sentence-transformers
 ```
 
+Artifacts required:
+
+```
+embedding_cases.jsonl
+```
+
 ---
 
-# 🛠️ Step‑by‑Step Chroma Ingestion
+# 🛠️ Step-by-Step Chroma Ingestion
 
-## **1. Load SentenceTransformers**
+### **1. Load MiniLM Embedding Model**
 ```
 from sentence_transformers import SentenceTransformer
-model = SentenceTransformer("all-MiniLM-L6-v2")
+
+embedder = SentenceTransformer("all-MiniLM-L6-v2")
 ```
 
-## **2. Initialize Chroma**
+### **2. Initialize ChromaDB**
 ```
 import chromadb
-client = chromadb.Client()
-collection = client.get_or_create_collection("radio_cases")
+
+client = chromadb.PersistentClient(path="rag_db")
+collection = client.get_or_create_collection("cases")
 ```
 
-## **3. Load embedding_cases.jsonl**
+### **3. Load JSONL**
 ```
 import json
 
-entries = []
+records = []
 with open("embedding_cases.jsonl", "r") as f:
     for line in f:
-        entries.append(json.loads(line))
+        records.append(json.loads(line))
 ```
 
-## **4. Generate embeddings**
+### **4. Insert into Chroma**
 ```
-ids = []
-docs = []
-metas = []
+for r in records:
+    text = r["embedding_text"]
+    emb = embedder.encode(text).tolist()
 
-for e in entries:
-    ids.append(str(e["case_id"]))
-    docs.append(e["embedding_text"])
-    metas.append({"case_id": e["case_id"]})
-```
-
-## **5. Add to Chroma**
-```
-collection.add(
-    ids=ids,
-    documents=docs,
-    metadatas=metas
-)
+    collection.add(
+        ids=[str(r["case_id"])],
+        documents=[text],
+        embeddings=[emb]
+    )
 ```
 
 ---
 
-# 🧪 Test Retrieval
+# 🧪 Verify DB Contents
 ```
-query = "Why does my P25 radio show INVALID NAC?"
-results = collection.query(query_texts=[query], n_results=3)
-print(results)
+collection.count()
+collection.peek()
 ```
 
 ---
 
 # 🏁 Output
-A persistent local vector DB containing all cases, ready for RAG.
+A persistent local vector database:
+
+```
+rag_db/
+```
+
+This database is consumed by **PHASE 12** during agentic troubleshooting.
+
 

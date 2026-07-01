@@ -1,7 +1,32 @@
 # agentic_engine/phase12_agentic_loop.py
-# =====================================================================
-# PHASE 12 — AGENTIC RAG LOOP
-# =====================================================================
+"""
+PHASE 12 — Agentic RAG Loop
+AI_Engineering_Digital_Signal_Telemetry
+
+This module loads the frozen Mistral‑7B model, merges the Phase 11 LoRA
+adapter, loads the rag_db vector database, retrieves relevant cases, builds
+a structured agentic troubleshooting prompt, and generates a grounded answer.
+
+Function Summary
+----------------
+load_model_and_adapter():
+    Loads base model and merges LoRA adapter for domain-specific reasoning.
+
+load_tokenizer():
+    Loads tokenizer used during finetuning for consistent inference.
+
+load_rag_db():
+    Initializes ChromaDB and loads the “cases” collection for retrieval.
+
+retrieve(query):
+    Embeds the user query and returns top-N relevant documents from rag_db.
+
+build_prompt(query, retrieved_docs):
+    Constructs agentic troubleshooting prompt using query + RAG context.
+
+agentic_answer(query):
+    Runs full agentic loop: retrieval → prompt → inference → decoded answer.
+"""
 
 import torch
 import chromadb

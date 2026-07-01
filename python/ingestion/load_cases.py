@@ -1,9 +1,26 @@
+# python/ingestion/load_cases.py
 """
-INGESTION MODULE — load_cases.py
-PROJECT: AI_ENGINEERING_DIGITAL_SIGNAL_TELEMETRY
-PURPOSE: Load raw JSON cases, validate required fields, normalize names,
-         and prepare for cleaning and schema validation.
+PHASE 10 — RAG Vector Database Builder
+AI_Engineering_Digital_Signal_Telemetry
+
+This module loads embedding_cases.jsonl, embeds each case using MiniLM,
+and writes all vectors into a persistent ChromaDB collection (rag_db/).
+
+Function Summary
+----------------
+load_embedding_cases():
+    Loads embedding_cases.jsonl and returns raw text entries for embedding.
+
+embed_cases(cases):
+    Uses MiniLM to convert each case’s embedding_text into a vector.
+
+write_to_chroma(vectors):
+    Writes all vectors + metadata into the local ChromaDB collection.
+
+run_phase10_build_rag_db():
+    Orchestrates loading, embedding, and writing to create rag_db/.
 """
+
 
 import json
 from pathlib import Path

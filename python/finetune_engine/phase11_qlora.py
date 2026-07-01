@@ -1,4 +1,41 @@
 # python/finetune_engine/phase11_qlora.py
+"""
+PHASE 11 — QLoRA Finetuning Engine
+AI_Engineering_Digital_Signal_Telemetry
+
+This module loads finetune_cases.jsonl, tokenizes prompt/response pairs,
+initializes the frozen Mistral‑7B model, injects LoRA adapters, and trains
+the adapter weights using QLoRA.
+
+Function Summary
+----------------
+run_phase11_finetune():
+    Main entry point. Loads dataset, tokenizes samples, initializes model,
+    applies LoRA config, and trains adapter weights.
+
+format_example(example):
+    Converts each prompt/response pair into a chat-style training sample
+    and produces tokenized input/label tensors.
+
+AutoTokenizer.from_pretrained():
+    Loads tokenizer and sets pad_token = eos_token for safe batching.
+
+AutoModelForCausalLM.from_pretrained():
+    Loads frozen Mistral‑7B model for adapter training.
+
+LoraConfig():
+    Defines LoRA adapter parameters (rank, alpha, dropout, target modules).
+
+get_peft_model():
+    Injects LoRA adapter layers into the frozen base model.
+
+TrainingArguments():
+    Configures training hyperparameters (batch size, LR, epochs, save steps).
+
+Trainer():
+    Runs the QLoRA training loop and writes adapter checkpoints to disk.
+"""
+
 
 from datasets import load_dataset
 from transformers import (
