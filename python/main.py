@@ -169,7 +169,7 @@ else:
     print("# =====================================================================")
     print("PHASE 11 — QLoRA FINETUNING ENGINE")
     print("# =====================================================================")
-
+"""
     from finetune_engine.phase11_qlora import run_phase11_finetune
 
     print("PHASE 11 — FUNCTION: run_phase11_finetune()")
@@ -189,7 +189,7 @@ from agentic_engine.phase12_agentic_loop import run_phase12_agentic
 
 test_q = "DMR radio audio dropouts while mobile — diagnose."
 run_phase12_agentic(test_q)
-
+"""
 
 
 if __name__ == "__main__":

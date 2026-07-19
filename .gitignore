@@ -54,6 +54,16 @@ Thumbs.db
 *.swo
 
 # -----------------------------
+# MODEL DIRECTORIES (IGNORE ALL LOCAL MODELS)
+# -----------------------------
+models/
+
+# -----------------------------
+# OFFLOAD DIRECTORIES (IGNORE ALL LOCAL OFFLOAD)
+# -----------------------------
+offload/
+
+# -----------------------------
 # Model training artifacts
 # KEEP: adapter_model.safetensors, trainer_state.json, etc.
 # IGNORE: large intermediate training files if generated
@@ -92,4 +102,5 @@ htmlcov/
 *.secrets
 *.env
 .env.*
+
 

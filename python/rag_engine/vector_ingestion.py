@@ -39,7 +39,6 @@ def run_phase_vector_ingestion(
     # Initialize Chroma
     print(f"Initializing Chroma at: {db_root}")
 
-    # NEW Chroma API (0.5+)
     client = chromadb.PersistentClient(path=str(db_root))
 
     collection = client.get_or_create_collection(
@@ -56,21 +55,41 @@ def run_phase_vector_ingestion(
                 continue
 
             entry = json.loads(line)
+
+            # REQUIRED FIELDS FROM embedding_cases.jsonl
             case_id = str(entry["case_id"])
             text = entry["embedding_text"]
+
+            # NEW: Extract metadata fields
+            protocol = entry.get("protocolFamily", "Unknown")
+            symptom = entry.get("symptom", "Unknown")
+
+            context = entry.get("context", {})
+            environment = context.get("environment", "Unknown")
+            hardware = context.get("hardware", "Unknown")
 
             debug_rag(f"Embedding case_id={case_id}", DEBUG_RAG)
 
             vector = model.encode(text).tolist()
 
+            # NEW: Store full metadata
+            metadata = {
+                "case_id": case_id,
+                "protocolFamily": protocol,
+                "symptom": symptom,
+                "environment": environment,
+                "hardware": hardware
+            }
+
             collection.add(
                 ids=[case_id],
                 documents=[text],
-                metadatas=[{"case_id": case_id}],
+                metadatas=[metadata],
                 embeddings=[vector]
             )
 
     print("\nPHASE 10 COMPLETE — Vector DB populated.")
     print(f"Persisted at: {db_root}")
     print("# =====================================================================")
+
 

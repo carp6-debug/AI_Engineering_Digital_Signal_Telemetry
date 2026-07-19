@@ -4,12 +4,23 @@
 import os
 os.environ["HF_HUB_DISABLE_RESUME_DOWNLOAD"] = "1"
 
+# Disable for hugging face wrapper fetch
+#ChromaDB 0.5+ requires an embedding function wrapper that:
+#Accepts a list of strings, Returns a list of vectors,Uses .tolist(),
+# Accepts a list of strings, Avoids numpy type confusion
+os.environ["TRANSFORMERS_OFFLINE"] = "1"
+os.environ["HF_DATASETS_OFFLINE"] = "1"
+os.environ["HF_HUB_OFFLINE"] = "1"
+
 from sentence_transformers import SentenceTransformer
 import chromadb
 from chromadb.api.types import EmbeddingFunction
 from typing import List
 import numpy as np
-from python.paths import RAG_DB_ROOT
+
+# FIXED IMPORT — correct when script is inside python/
+import paths
+RAG_DB_ROOT = paths.RAG_DB_ROOT
 
 
 # ------------------------------------------------------------
@@ -18,21 +29,18 @@ from python.paths import RAG_DB_ROOT
 class MiniLMEmbeddingFunction(EmbeddingFunction):
     def __init__(self):
         self.model = SentenceTransformer(
-    "all-MiniLM-L6-v2",
-    cache_folder="C:/Users/carp6/.cache/huggingface",
-    use_auth_token=False
-)
-
+            "all-MiniLM-L6-v2",
+            cache_folder="C:/Users/carp6/.cache/huggingface",
+            use_auth_token=False
+        )
 
     def __call__(self, texts: List[str]) -> List[List[float]]:
         if not texts:
             return []
 
-        # Force numpy array to avoid Pyright confusion
         embeddings = np.asarray(self.model.encode(texts))
-
-        # Now .tolist() is guaranteed valid
         return embeddings.tolist()
+
 
 # Instantiate embedding function
 embedding_fn = MiniLMEmbeddingFunction()
