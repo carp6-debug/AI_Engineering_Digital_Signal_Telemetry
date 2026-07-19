@@ -1,7 +1,6 @@
 # 🧠 HOWTO — Local QLoRA Finetuning
 
-### AI_Engineering_Digital_Signal_Telemetry
-
+### AI_Engineering_Digital_Signal_Telemetry  
 ### RAW Markdown Reference Guide
 
 ---
@@ -13,17 +12,33 @@ This teaches the model **how to reason** about digital radio troubleshooting.
 
 ---
 
+## 🔍 What QLoRA Actually Means
+**QLoRA = Quantized Low‑Rank Adaptation**
+
+It is a **parameter‑efficient finetuning method** that allows training large models on consumer GPUs by:
+
+- Freezing the base model  
+- Loading it in **4‑bit quantized mode**  
+- Training only small **low‑rank adapter layers**  
+- Producing a tiny, efficient finetuned checkpoint  
+
+This is exactly what Phase 11 uses.
+
+---
+
 ## 🧱 Requirements
+
+### Install (Updated)
+Your final working configuration **did NOT use bitsandbytes**.
 
 Install:
 
 ```
-pip install transformers accelerate bitsandbytes datasets peft
+pip install transformers accelerate datasets peft
 ```
 
-Hardware:
-
-- NVIDIA GPU (your RTX 4070 SUPER is perfect)
+### Hardware
+- NVIDIA GPU (RTX 4070 SUPER — perfect)
 - 16GB+ RAM (you have 32GB)
 - 8GB+ VRAM (you have 12GB)
 
@@ -32,13 +47,20 @@ Hardware:
 ## 🛠️ Step‑by‑Step QLoRA Finetuning
 
 ### **1. Choose a base model**
-Recommended:
+Recommended (Phase 11 uses Mistral):
+
+```
+mistralai/Mistral-7B-Instruct-v0.2
+```
+
+Alternatives:
 
 ```
 meta-llama/Llama-3.2-3B
 meta-llama/Llama-3.2-8B
-mistralai/Mistral-7B-v0.3
 ```
+
+---
 
 ### **2. Load your finetune JSONL**
 ```
@@ -46,6 +68,8 @@ from datasets import load_dataset
 
 dataset = load_dataset("json", data_files="finetune_cases.jsonl")
 ```
+
+---
 
 ### **3. Format the dataset**
 ```
@@ -56,6 +80,8 @@ def format_example(example):
 
 dataset = dataset.map(format_example)
 ```
+
+---
 
 ### **4. Configure QLoRA**
 ```
@@ -69,15 +95,28 @@ lora_config = LoraConfig(
 )
 ```
 
+---
+
 ### **5. Train**
 ```
-from transformers import TrainingArguments, Trainer, AutoModelForCausalLM, AutoTokenizer
+from transformers import (
+    TrainingArguments,
+    Trainer,
+    AutoModelForCausalLM,
+    AutoTokenizer
+)
 
-model = AutoModelForCausalLM.from_pretrained(base_model, load_in_4bit=True)
+base_model = "mistralai/Mistral-7B-Instruct-v0.2"
+
+model = AutoModelForCausalLM.from_pretrained(
+    base_model,
+    load_in_4bit=True
+)
+
 tokenizer = AutoTokenizer.from_pretrained(base_model)
 
 training_args = TrainingArguments(
-    output_dir="./finetuned_model",
+    output_dir="./models/finetune_engine_phase11",
     per_device_train_batch_size=2,
     gradient_accumulation_steps=4,
     num_train_epochs=3,
@@ -96,9 +135,24 @@ trainer = Trainer(
 trainer.train()
 ```
 
-### **6. Save the finetuned model**
+---
+
+### **6. Save the finetuned adapter**
 ```
-trainer.save_model("./finetuned_model")
+trainer.save_model("./models/finetune_engine_phase11")
+```
+
+This produces:
+
+```
+models/finetune_engine_phase11/checkpoint-5/
+    adapter_config.json
+    adapter_model.safetensors
+    training_args.bin
+    trainer_state.json
+    optimizer.pt
+    scheduler.pt
+    rng_state.pth
 ```
 
 ---
@@ -107,8 +161,16 @@ trainer.save_model("./finetuned_model")
 A local folder:
 
 ```
-finetuned_model/
+models/finetune_engine_phase11/
 ```
 
-This is your **local troubleshooting LLM**.
+This contains your **QLoRA adapter**, which Phase 12 loads to perform:
+
+- domain‑specific reasoning  
+- RF troubleshooting logic  
+- structured diagnostic workflows  
+
+This completes **Phase 11 Finetuning**.
+
+
 
