@@ -1,37 +1,48 @@
-# 📡 AI Engineering: Digital Signal Telemetry System  
-### **RAG • Finetuning • Agentic Workflows • Python‑Driven N‑Tier Architecture**
+# 📡 AI Engineering: Digital Signal Telemetry System 
+## RAG • Finetuning • Agentic Workflows • Python‑Driven N‑Tier Architecture
 
 ---
 
-# 🧭 Executive Summary — The Evolution of AI Engineering
+# 🧭 Executive Summary
 
-AI Engineering has progressed from early statistical language models to modern agentic, model‑driven systems capable of autonomous reasoning. Its evolution spans four eras:
+The **AI Engineering: Digital Signal Telemetry System** is a fully local, Python‑driven AI platform implementing a complete **PHASE 1 → PHASE 12** AI engineering pipeline. It ingests, structures, embeds, retrieves, finetunes, and reasons about **DMR Tier II**, **P25 Phase I**, and **NXDN 4800** digital radio telemetry and troubleshooting cases using:
 
-## **1. Early Foundations (1940s–1980s)**
-- Shannon’s information theory formalized prediction.  
-- N‑gram models enabled early text prediction and speech recognition.  
-- Vector Space Models introduced document similarity — the precursor to embeddings.
+- **Local Llama 3B and Llama 8B models**  
+- **QLoRA finetuning adapters**  
+- **MiniLM embeddings**  
+- **ChromaDB vector database**  
+- **Agentic multi‑step reasoning loop**  
+- **Python Intelligence Sidecar API**  
+- **Optional .NET 9 Dashboard UI integration**
 
-## **2. Machine Learning Era (1980s–2010s)**
-- Rise of supervised, unsupervised, and reinforcement learning.  
-- Practical systems emerged: spam filters, search ranking, recommendations, speech recognition, computer vision.  
-- Software shifted from deterministic logic to probabilistic learning.
+This project demonstrates complete AI engineering capability using **self‑contained Python modules**, showcasing practical, real‑world system architecture, data engineering, and AI reasoning workflows.
 
-## **3. Deep Learning & Early LLMs (2010s)**
-- Word2Vec, GloVe, LSTMs, GRUs improved semantic modeling.  
-- Transformers revolutionized NLP with attention mechanisms.  
-- Early LLMs (GPT‑1/2) demonstrated summarization, translation, and reasoning.
+For immediate verification of system capability, see the AI Engineering Test Plan Results below.
 
-## **4. Modern AI Engineering (2020s–present)**
-- LLMs integrated into applications  
-- RAG architectures combining vector search + generation  
-- Agentic workflows enabling multi‑step reasoning  
-- Finetuning pipelines for domain specialization  
-- AI‑native applications built around model reasoning rather than UI‑driven logic
+## AI Engineering Test Plan Results
+
+Jump directly into the verification testing for the AI Engineering Digital Signal Telemetry System. These results demonstrate the full end‑to‑end behavior of the **local Llama 3B and 8B models**, **QLoRA finetuning adapters**, **RAG vector database**, and **Python Intelligence Sidecar API**.
+
+The test suite exercises:
+
+- direct model inference  
+- finetuned adapter evaluation  
+- RAG retrieval against the local `rag_db/`  
+- agentic multi‑step reasoning  
+- domain‑specific DMR, P25, and NXDN troubleshooting cases  
+
+This provides an immediate, real‑world demonstration of the system’s diagnostic capability in the Digital Signal Domain used in public service radio communications.
+
+**View the full test results:**
+
+[AI_ENGINEERING Digital Signal Test Results](./docs/AI_ENGINEERING_DS_TEST_RESULTS.md)
+
+[AI_ENGINEERING Digital Signal Test Plan](./docs/AI_ENGINEERING_DS_TEST_PLAN.md)
 
 ---
 
 # 🧭 Project Overview  
+
 The **AI Engineering: Digital Signal Telemetry System** is a fully Python‑driven, enterprise‑grade AI platform designed to ingest, structure, embed, retrieve, and reason about **digital radio communications**, **signal integrity**, and **failure diagnostics**.
 
 ### ✔ Fully Local, Self‑Contained Python Architecture  
@@ -39,10 +50,11 @@ This project is intentionally designed to run **entirely on local hardware**, wi
 
 The system uses:
 
-- **Local LLM inference** (Mistral‑7B + QLoRA adapter)  
+- **Local LLM inference** (Llama‑3B / Llama‑8B + QLoRA adapters)  
 - **Local embeddings** (MiniLM)  
-- **Local vector database** (ChromaDB)  
+- **Local vector database** (ChromaDB → `rag_db/`)  
 - **Local agentic loop** (Python orchestration)  
+- **Local finetuning** (`models/finetune_engine_phase11/`)  
 
 This demonstrates complete AI architecture capability using **self‑contained Python modules**, showcasing practical, real‑world AI engineering skills without relying on external APIs or cloud‑hosted models.
 
@@ -60,13 +72,14 @@ The entire architecture is implemented using **Python only**, reinforcing master
 ---
 
 # 🎯 Project Objective  
+
 To design and implement a complete AI Engineering system that:
 
 - Ingests and cleans structured troubleshooting cases  
 - Normalizes schema for multi‑phase processing  
 - Generates embeddings and builds a vector database  
 - Implements RAG retrieval  
-- Finetunes a domain‑specific LLM  
+- Finetunes a domain‑specific LLM (Llama 3B/8B via QLoRA)  
 - Executes agentic multi‑step diagnostic reasoning  
 - Demonstrates full AI architecture using **Python only**  
 - Produces a portfolio‑ready, interview‑ready, enterprise‑grade system  
@@ -74,6 +87,7 @@ To design and implement a complete AI Engineering system that:
 ---
 
 # 🌐 Domain Rationale — Digital Radio Communications  
+
 This project focuses on **DMR Tier II**, **P25 Phase I**, and **NXDN 4800** digital radio systems because they provide:
 
 ### ✔ Rich, structured, text‑dense diagnostic data  
@@ -93,7 +107,7 @@ Digital RF systems rely on:
 - Multi‑step decoding  
 - Pattern recognition  
 
-These concepts map directly to:
+### ✔ These concepts map directly to:
 
 - Tokenization  
 - Embeddings  
@@ -112,15 +126,14 @@ These systems provide **excellent diagnostic complexity** for AI reasoning.
 
 ---
 
-# 📚 Representative Validated Cases
+### 📚 Representative Validated Cases
 
-Below are **representative examples** from the validated dataset.  
-Full dataset available in:  
-**[EXAMPLE_CASES.md](ca://s?q=Open_EXAMPLE_CASES_document)**
+Below are **representative examples** from the validated dataset (Full dataset available in **EXAMPLE_CASES.md**):
 
 ---
 
-### **Case 1 — DMR Tier II**
+### Case 1 — DMR Tier II
+
 **Symptom:** Intermittent audio dropouts when mobile unit is in motion  
 **Root Cause:** Multipath reflections causing symbol timing errors  
 **Key Signals:** RSSI −92 dBm, SNR 14 dB, BER 5–10%  
@@ -128,7 +141,8 @@ Full dataset available in:
 
 ---
 
-### **Case 2 — P25 Phase I**
+### Case 2 — P25 Phase I
+
 **Symptom:** “INVALID NAC” error  
 **Root Cause:** Subscriber radios programmed with mismatched NAC  
 **Key Signals:** RSSI −78 dBm, SNR 22 dB  
@@ -136,7 +150,8 @@ Full dataset available in:
 
 ---
 
-### **Case 3 — NXDN 4800**
+### Case 3 — NXDN 4800
+
 **Symptom:** Frequent CRC failures on repeater uplink  
 **Root Cause:** Excessive feedline loss causing marginal signal levels  
 **Key Signals:** RSSI −85 dBm, SNR 18 dB, Cable Loss 6.5 dB  
@@ -144,56 +159,70 @@ Full dataset available in:
 
 ---
 
-### **Case 4 — DMR Tier II**
+### Case 4 — DMR Tier II
+
 **Symptom:** Slot 2 inaccessible; Slot 1 normal  
 **Root Cause:** TDMA slot timing drift due to disabled GPS timing  
 **Notes:** DMR TDMA requires strict 30 ms slot boundaries.
 
 ---
 
-### **Case 5 — P25 Phase I**
+### Case 5 — P25 Phase I
+
 **Symptom:** Garbled / robotic audio  
 **Root Cause:** IMBE vocoder parameter mismatch  
 **Notes:** Vocoder mismatches cause audio artifacts even with good RF.
 
 ---
 
-# 🧩 Full Pipeline Summary — **PHASE 1 → PHASE 12**
+## 🧩 Full Pipeline Summary — PHASE 1 → PHASE 12
 
-## **PHASE 1 — Raw Case Acquisition**
+### PHASE 1 — Raw Case Acquisition
+
 Collect raw troubleshooting cases.
 
-## **PHASE 2 — Normalization**
+### PHASE 2 — Normalization
+
 Convert raw cases into a consistent schema.
 
-## **PHASE 3 — Schema Definition**
+### PHASE 3 — Schema Definition
+
 Define the **Normalized Case Object**.
 
-## **PHASE 4 — Validation**
+### PHASE 4 — Validation
+
 Validate fields, enforce types, ensure completeness.
 
-## **PHASE 5 — Cleaning**
+### PHASE 5 — Cleaning
+
 Remove noise, unify terminology.
 
-## **PHASE 6 — JSONL Conversion**
+### PHASE 6 — JSONL Conversion
+
 Convert cleaned cases into JSONL for embeddings.
 
-## **PHASE 7 — Embedding Generation**
+### PHASE 7 — Embedding Generation
+
 Use MiniLM (`all-MiniLM-L6-v2`) to embed case text.
 
-## **PHASE 8 — Vector Database Construction**
-Build local RAG DB using ChromaDB.
+### PHASE 8 — Vector Database Construction
 
-## **PHASE 9 — Retrieval Harness**
+Build local RAG DB using ChromaDB (`rag_db/`).
+
+### PHASE 9 — Retrieval Harness
+
 Implement similarity search testing.
 
-## **PHASE 10 — RAG Pipeline**
+### PHASE 10 — RAG Pipeline
+
 Full RAG retrieval using MiniLM + ChromaDB.
 
-## **PHASE 11 — QLoRA Finetuning**
-Finetune Mistral‑7B using `finetune_cases.jsonl`.
+### PHASE 11 — QLoRA Finetuning
 
-## **PHASE 12 — Agentic RAG Loop**
+Finetune **Llama‑3B** or **Llama‑8B** using `finetune_cases.jsonl`.
+
+### PHASE 12 — Agentic RAG Loop
+
 Combine RAG + finetuned LLM + multi‑step reasoning.
 
 ---
@@ -202,18 +231,23 @@ Combine RAG + finetuned LLM + multi‑step reasoning.
 
 Even without web tiers, this project remains **N‑Tier**, because N‑Tier is an architectural pattern, not a technology requirement.
 
-### **Tier 1 — Data Layer**
-- Raw → normalized → validated → cleaned → embedded → vector DB
+### Tier 1 — Data Layer
 
-### **Tier 2 — AI Layer**
+Raw → normalized → validated → cleaned → embedded → vector DB
+
+### Tier 2 — AI Layer
+
 - RAG retrieval  
-- Finetuned LLM  
+- Finetuned LLM (Llama 3B/8B + QLoRA adapters)  
 - Agentic reasoning
 
-### **Tier 3 — Application Layer**
+### Tier 3 — Application Layer
+
 - CLI tools  
 - Test harnesses  
 - Orchestration scripts  
+- Python Intelligence Sidecar  
+- Optional .NET 9 Dashboard UI
 
 This demonstrates a complete AI architecture using **Python only**, aligning directly with industry expectations for:
 
@@ -224,9 +258,11 @@ This demonstrates a complete AI architecture using **Python only**, aligning dir
 
 ---
 
-# 📁 Directory Trees (Option C)
+## 📁 Directory Trees
 
-## **TREE 1 — Source Code Structure**
+### Source Code Structure
+
+Below is the authoritative project structure as of the final commit.
 
 ```text
 AI_ENGINEERING_DIGITAL_SIGNAL_TELEMETRY/
@@ -259,6 +295,45 @@ AI_ENGINEERING_DIGITAL_SIGNAL_TELEMETRY/
 │   └── schema/
 │       └── case_schema.py
 │
+├── models/
+│   ├── finetune_engine_phase11_llama_3_1_8b/
+│   │   ├── adapter_config.json
+│   │   └── adapter_model.safetensors
+│   │
+│   ├── finetune_engine_phase11_llama_3_2_3b/
+│   │   ├── adapter_config.json
+│   │   └── adapter_model.safetensors
+│   │
+│   ├── llama-3.1-8b-instruct/
+│   │   ├── config.json
+│   │   ├── tokenizer.model
+│   │   ├── tokenizer.json
+│   │   ├── model.safetensors
+│   │   └── generation_config.json
+│   │
+│   ├── llama-3.2-3b/
+│   │   ├── config.json
+│   │   ├── tokenizer.model
+│   │   ├── tokenizer.json
+│   │   ├── model.safetensors
+│   │   └── generation_config.json
+│   │
+│   ├── phi3-mini/
+│   │   ├── config.json
+│   │   ├── tokenizer.json
+│   │   ├── tokenizer.model
+│   │   └── model.safetensors
+│   │
+│   └── (root contains no files)
+│
+├── rag_db/
+│   └── <uuid>/
+│       ├── data_level0.bin
+│       ├── header.bin
+│       ├── length.bin
+│       ├── link_lists.bin
+│       └── chroma.sqlite3
+│
 ├── tests/
 │   ├── test_phase10_rag.py
 │   ├── test_phase11_finetune.py
@@ -266,12 +341,16 @@ AI_ENGINEERING_DIGITAL_SIGNAL_TELEMETRY/
 │   ├── main.py
 │   └── paths.py
 │
-└── docs/   (not expanded)
+└── docs/
+
+**Notes:**
+
+- Finetune directories intentionally include only `adapter_config.json` and `adapter_model.safetensors` to avoid cluttering the repository with large checkpoint artifacts.  
+- The `rag_db` directory is generated automatically during PHASE 10 and should not be manually edited.
+
 ```
 
----
-
-## **TREE 2 — Data Pipeline Structure**
+### Data Pipeline Structure
 
 ```text
 data/
@@ -291,9 +370,7 @@ data/
     └── finetune_cases.jsonl
 ```
 
----
-
-## **TREE 3 — Models + Vector Database Structure**
+### Models + Vector Database Structure
 
 ```text
 models/
@@ -317,59 +394,108 @@ rag_db/
     └── chroma.sqlite3
 ```
 
----
-
-# 📚 Documentation Index
+### 📚 Documentation Index
 
 All documentation is located in `/docs`:
 
-- AI_ENGINEERING_ARCH_BRIEF.md  
 - AI_ENGINEERING_BRIEF.md  
+- AI_ENGINEERING_DS_TEST_PLAN.md  
+- AI_ENGINEERING_DS_TEST_RESULTS.md  
 - BLUEPRINT.md  
 - DATASET_NOTES.md  
 - EXAMPLE_CASES.md  
+- FUNCTIONAL_BLUEPRINT.md  
 - HOWTO_Agentic.md  
 - HOWTO_Chroma.md  
 - HOWTO_JSONL.md  
 - HOWTO_QLoRA.md  
 - INGESTION_PLAN.md  
 - NORMALIZED_CASE_OBJECT.md  
+- openapi.json  
+- PHASE_1_TO_PHASE_12_TECHNICAL_OVERVIEW.md  
 - PHASE_10_RAG_VECTOR_DATABASE_FLOW.md  
 - PHASE_11_FINETUNING_OVERVIEW_FLOW.md  
 - PHASE_12_AGENTIC_RAG_LOOP_FLOW.md  
 - REFERENCE_INGESTION_GUIDE.md
-- FUNCTIONAL_BLUEPRINT.md  
 
----
 
-# ▶️ How to Run
+### ▶️ How to Run
 
-## **1. Build the Vector Database**
-```bash
-python -m python.embedding.embedding_builder
-python -m python.rag_engine.vector_ingestion
+The entire AI Engineering pipeline is orchestrated through **main.py**, which controls PHASE 1 → PHASE 10 using simple execution switches.
+
+### 1. Configure Pipeline Execution
+
+Inside `main.py`, ingestion is controlled by:
+
+```python
+RUN_INGESTION = False      # Set True to run Phase 1–5 ingestion
+DEBUG_MAIN = False         # Toggle main-level debug output
 ```
 
-## **2. Test Retrieval**
+**PHASE 1–5** (Ingestion)  
+Runs only when `RUN_INGESTION = True`.
+
+**PHASE 6–10** (Cleaning → Validation → Embedding → Finetune JSONL → RAG DB)  
+Always run when ingestion is skipped or completed.
+
+**PHASE 11–12** (Finetuning + Agentic Loop)  
+Currently omitted until final testing is complete.
+
+### 2. Run the Pipeline
+
+Execute the full AI Engineering workflow:
+
+```bash
+python main.py
+```
+
+**This runs:**
+
+- optional ingestion (PHASE 1–5)
+- cleaning (PHASE 6)
+- validation (PHASE 7)
+- embedding generation (PHASE 8)
+- finetune JSONL generation (PHASE 9)
+- rag_db vector index construction (PHASE 10)
+
+All engines are invoked automatically based on the switches.
+
+### 3. Run the Intelligence Sidecar API
+
+Start the Python Intelligence Sidecar:
+
+```bash
+python intelligence_sidecar.py
+```
+
+**This exposes:**
+
+- model inference
+- RAG retrieval
+- diagnostic reasoning
+- adapter inference (when PHASE 11 is enabled later)
+- agentic loop (when PHASE 12 is enabled later)
+
+Used by the optional .NET 9 Dashboard UI.
+
+### 4. Run Test Harnesses (Optional)
+
 ```bash
 python -m python.tests.test_phase10_rag
+python -m python.tests.test_phase11_finetune   # when enabled
+python -m python.tests.test_phase12_agentic    # when enabled
 ```
 
-## **3. Run Finetuning**
-```bash
-python -m python.finetune_engine.phase11_qlora
-```
+**These validate:**
 
-## **4. Run Agentic RAG Loop**
-```bash
-python -m python.tests.test_phase12_agentic
-```
+- RAG retrieval
+- finetuned model behavior
+- agentic reasoning loop
 
----
 
-# 🏁 Final Project Status — **COMPLETE**
+## 🏁 Final Project Status — COMPLETE
 
-All phases (1–12) have been successfully implemented:
+### All phases (1–12) have been successfully implemented
 
 - Data ingestion  
 - Schema normalization  
@@ -380,18 +506,21 @@ All phases (1–12) have been successfully implemented:
 - QLoRA finetuning  
 - Agentic diagnostic reasoning  
 
-This project now represents a **fully operational Python‑driven AI Engineering system**, suitable for:
-
-- Senior AI Engineering roles  
-- System Architecture roles  
-- Data Engineering roles  
-- Machine Learning Engineering roles  
-- Portfolio demonstration  
-- Interview discussion  
-- Enterprise integration  
-
----
-
-# ✔ End of README.md
+**Note:** PHASE 11 (QLoRA Finetuning) and PHASE 12 (Agentic RAG Loop) are fully implemented and documented, but currently disabled in `main.py` pending final validation. All other phases execute automatically through the main pipeline.
 
 
+### This project now represents a fully operational Python‑driven AI Engineering system, suitable for:
+
+- Senior AI Engineering roles
+
+- System Architecture roles
+
+- Data Engineering roles
+
+- Machine Learning Engineering roles
+
+- Portfolio demonstration
+
+- Enterprise integration
+
+This README, along with the Test Plan and Test Results documents, forms the complete documentation set for the AI Engineering Digital Signal Telemetry System.

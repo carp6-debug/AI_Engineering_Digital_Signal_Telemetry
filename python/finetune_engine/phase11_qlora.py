@@ -4,7 +4,7 @@ PHASE 11 — QLoRA Finetuning Engine
 AI_Engineering_Digital_Signal_Telemetry
 
 This module loads finetune_cases.jsonl, tokenizes prompt/response pairs,
-initializes the frozen Mistral‑7B model, injects LoRA adapters, and trains
+initializes the frozen Llama‑8B model, injects LoRA adapters, and trains
 the adapter weights using QLoRA.
 
 Function Summary
@@ -21,7 +21,7 @@ AutoTokenizer.from_pretrained():
     Loads tokenizer and sets pad_token = eos_token for safe batching.
 
 AutoModelForCausalLM.from_pretrained():
-    Loads frozen Mistral‑7B model for adapter training.
+    Loads frozen Llama‑8B model for adapter training.
 
 LoraConfig():
     Defines LoRA adapter parameters (rank, alpha, dropout, target modules).

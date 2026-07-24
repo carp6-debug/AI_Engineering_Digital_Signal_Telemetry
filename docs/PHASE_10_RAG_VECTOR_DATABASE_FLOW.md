@@ -1,146 +1,69 @@
 # 📘 Phase 10 — Local RAG Vector Database Workflow (MiniLM + Chroma)
-### AI_Engineering_Digital_Signal_Telemetry — RAG Architecture Overview
+### AI_Engineering_Digital_Signal_Telemetry — RAG Architecture Overview  
+### RAW Markdown — Single Fenced Block
 
-This document describes the complete workflow for building and querying the **local RAG vector database**, using:
+# 🧭 Purpose
 
-- **SentenceTransformers MiniLM** — embedding engine  
-- **ChromaDB** — persistent local vector database  
-- **rag_db/** — on‑disk vector store  
-- **test_retrieval.py** — query + similarity search harness  
+Phase 10 builds the **local Retrieval-Augmented Generation (RAG) vector database** used by the Llama 3B and 8B models. It converts embedding text into searchable vectors and stores them in a ChromaDB collection located in the local `rag_db/` directory.
 
-This phase establishes the retrieval foundation used by Phase 12’s Agentic RAG Loop.
+This phase provides the factual grounding required for the Agentic Loop and Dashboard UI.
 
----
+# 🧱 Inputs
 
-## 1. Phase 10 — Vector Write Operation (Building rag_db)
+- `embedding_cases.jsonl`  
+  Generated in Phase 8 (embedding)  
+  Contains cleaned, validated, domain‑specific text blocks.
 
-### **Input**
-`embedding_cases.jsonl`  
-Each entry contains the full case text:
+# 🗂️ Output
 
-- Symptom  
-- Context  
-- ObservedSignals  
-- RootCause  
-- ResolutionSteps  
+- `rag_db/`  
+  Local ChromaDB directory containing:
+  - vector index  
+  - metadata  
+  - collection configuration  
 
-### **Process**
-1. Load each case’s text.  
-2. Convert text → vector using MiniLM (`all-MiniLM-L6-v2`).  
-3. Store the vector in a persistent Chroma collection:
+# ⚙️ Components
 
-```
-rag_db/
-└── radio_cases
-```
+### **run_phase_vector_ingestion()**
+Responsible for:
 
-### **Code Concept**
+- loading `embedding_cases.jsonl`  
+- generating MiniLM embeddings  
+- creating the ChromaDB collection  
+- inserting all case vectors  
+- verifying index integrity  
 
-```python
-model = SentenceTransformer("all-MiniLM-L6-v2")
-embedding = model.encode(case_text)
+# 📦 Vector DB Structure
 
-collection.add(
-    documents=[case_text],
-    embeddings=[embedding],
-    ids=[case_id]
-)
-```
+### **Collection Name**
+`radio_cases`
 
-### **Result**
-A persistent local vector database containing:
+### **Stored Fields**
+- `id`  
+- `text`  
+- `embedding`  
+- `metadata` (CaseId, protocol type, symptom tags)
 
-- CaseId  
-- Original text  
-- Embedding vector  
+# 🔍 Retrieval Behavior
 
-This completes the **write** phase.
+Queries from:
 
----
+- Python sidecar (`/rag/query`)  
+- Dashboard UI  
+- Agentic Loop (Phase 12)
 
-## 2. test_retrieval.py — Vector Read Operation (Querying rag_db)
+are resolved through:
 
-### **Input**
-Plain text query:
+1. MiniLM embedding of the query  
+2. similarity search in `radio_cases`  
+3. return of top‑k relevant cases  
 
-```
-audio dropouts when mobile unit is moving
-```
+# 🧩 Summary
 
-### **Process**
-1. Chroma receives the query text.  
-2. Chroma embeds the query using MiniLM.  
-3. Chroma compares the query vector to stored case vectors.  
-4. Chroma computes cosine similarity.  
-5. Chroma returns the closest matches.
+Phase 10 produces the **local RAG index** that powers:
 
-### **Code Concept**
+- Llama 3B/8B retrieval  
+- Agentic reasoning  
+- Dashboard UI diagnostics  
 
-```python
-results = collection.query(
-    query_texts=[query],
-    n_results=3
-)
-```
-
-### **Example Result**
-
-```
-Top Matches:
-1. CaseId: 1.0  |  Similarity Score: 0.4576
-2. CaseId: 5.0  |  Similarity Score: 0.3744
-3. CaseId: 2.0  |  Similarity Score: 0.2710
-```
-
-These scores represent **semantic similarity**, not probability.
-
----
-
-## 3. Meaning of Similarity Scores
-
-Cosine similarity measures how close two vectors are:
-
-- **1.0** → identical meaning  
-- **0.0** → unrelated  
-- **negative** → opposite meaning (rare for embeddings)
-
-Example:
-
-**Case 1 Symptom**  
-“Intermittent audio dropouts… mobile unit… in motion.”
-
-**Query**  
-“audio dropouts when mobile unit is moving”
-
-Strong semantic overlap → highest similarity score.
-
----
-
-## 4. Summary of the Entire RAG Flow
-
-### **Write (Phase 10)**  
-case text → MiniLM → case vector → rag_db
-
-### **Read (test_retrieval.py)**  
-query text → MiniLM → query vector → compare → top matches
-
-### **Output**  
-A ranked list of cases based on semantic similarity.
-
----
-
-## 5. Key Points
-
-- MiniLM is used for both writing and reading.  
-- Chroma stores vectors locally in `rag_db`.  
-- Queries are embedded automatically.  
-- Similarity scores reflect semantic closeness.  
-- A score of 1.0 is a perfect vector match.
-
-This completes the **local RAG pipeline** for vector search.
-
----
-
-
-
-
+It is a foundational component of the full PHASE 1–PHASE 12 pipeline.
